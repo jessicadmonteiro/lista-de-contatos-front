@@ -1,3 +1,4 @@
+import { AuthContactProvider } from "./context/ContactContext/ContactContext"
 import { AuthLoginProvider } from "./context/LoginContext/LoginContext"
 import { AuthRegisterProvider } from "./context/RegisterContext/RegisterContext"
 import { RoutesMain } from "./routes"
@@ -10,7 +11,9 @@ function App() {
     <ToastContainer/>
     <AuthRegisterProvider>
       <AuthLoginProvider>
-        <RoutesMain/>
+        <AuthContactProvider>
+          <RoutesMain/>
+        </AuthContactProvider>
       </AuthLoginProvider>
     </AuthRegisterProvider>
     </>

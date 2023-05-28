@@ -5,11 +5,17 @@ export interface IContactData {
     telephone: string
 }
 
+
+export interface INewContactData {
+    id: number
+    username: string
+    email: string
+    telephone: string
+}
+
 export interface IContactContext {
-    AddContact: (data: IContactData) => Promise<void>
-    contact: never[]
-    setContact: React.Dispatch<React.SetStateAction<never[]>>
-    setIdContact: React.Dispatch<React.SetStateAction<string>>
-    ToEdit(data: any): Promise<void>
-    DeleteContact(id: number): Promise<any | undefined>
+    AddContact: (newData: IContactData) => Promise<void>
+    ListContacts: (id: number | undefined) => Promise<void>
+    contacts: INewContactData[]
+    
 }
