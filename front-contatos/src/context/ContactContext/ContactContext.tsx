@@ -3,9 +3,11 @@ import { IUserProviderProps } from "../../Interfaces/UserInterfaces"
 import { IContactContext, IContactData, INewContactData } from "../../Interfaces/ContactInterfaces"
 import { api } from "../../service/api"
 
+
 export const ContexContact = createContext({} as IContactContext)
 
 export const AuthContactProvider = ({ children }: IUserProviderProps) => {
+
 
     const [contactNew, steContactNew] = useState<INewContactData[]>([])
     const [contacts, setContacts] = useState<INewContactData[]>([])

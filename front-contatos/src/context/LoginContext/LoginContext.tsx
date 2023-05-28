@@ -56,7 +56,7 @@ export const AuthLoginProvider = ({ children }: IUserProviderProps) => {
         const userFind = data.find((user: IUser) => user.email === email)
 
         setUser(userFind)
-        
+    
       } catch (error) {
         console.error(error)
 

@@ -2,31 +2,28 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { ILoginFormData } from "../../Interfaces/LoginInterfaces"
 import { useContext } from "react"
 import { ContextLogin } from "../../context/LoginContext/LoginContext"
-import { ContexContact } from "../../context/ContactContext/ContactContext"
-
+import { Form } from "../../styles/Form"
+import { ButtonBlue } from "../../styles/ButtonBlue"
 
 export const LoginForm = () => {
 
-    const { userLogin, user} = useContext(ContextLogin)
-    const { ListContacts } = useContext(ContexContact)
-    const {register, handleSubmit, formState: {errors}} = useForm<ILoginFormData>()
+    const { userLogin } = useContext(ContextLogin)
+    const {register, handleSubmit} = useForm<ILoginFormData>()
 
     const submit: SubmitHandler<ILoginFormData> = (formData) => {
         userLogin(formData)
     }
 
     return (
-       
-        <form onSubmit={handleSubmit(submit)}>
+        <Form onSubmit={handleSubmit(submit)}>
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" {...register("email")} />
+            <input type="email" id="email" placeholder="Digite seu email" {...register("email")} />
 
             <label htmlFor="password">Senha</label>
-            <input type="password" id="password" {...register("password")} />
+            <input type="password" id="password" placeholder="Digite sua senha" {...register("password")} />
 
-            <button type="submit" onClick={() =>{ListContacts(user?.id)}}>Entrar</button>
-        </form>
-        
+            <ButtonBlue type="submit">Entrar</ButtonBlue>
+        </Form>
     )
 }
            

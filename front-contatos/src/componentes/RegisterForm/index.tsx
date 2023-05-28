@@ -2,31 +2,33 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { IRegisterFormData } from "../../Interfaces/RegisterInterfaces"
 import { useContext } from "react"
 import { ContextRegister } from "../../context/RegisterContext/RegisterContext"
+import { Form } from "../../styles/Form"
+import { ButtonBlue } from "../../styles/ButtonBlue"
 
 export const RegisterForm = () => {
 
     const { userRegister } = useContext(ContextRegister)
-    const {register, handleSubmit, formState: {errors}} = useForm<IRegisterFormData>()
+    const {register, handleSubmit} = useForm<IRegisterFormData>()
 
     const submit: SubmitHandler<IRegisterFormData> = (formData) => {
         userRegister(formData)
     }
 
     return (
-        <form onSubmit={handleSubmit(submit)}>
+        <Form onSubmit={handleSubmit(submit)}>
             <label htmlFor="text">Nome Completo</label>
-            <input type="text" id="username" {...register("username")}/>
+            <input type="text" id="username" placeholder="Digite seu Nome" {...register("username")}/>
 
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" {...register("email")}/>
+            <input type="email" id="email" placeholder="Digite seu email" {...register("email")}/>
 
             <label htmlFor="text">Telefone</label>
-            <input type="text" id="telephone" {...register("telephone")}/>
+            <input type="text" id="telephone" placeholder="Digite seu telefone" {...register("telephone")}/>
 
             <label htmlFor="password">Senha</label>
-            <input type="password" id="password" {...register("password")}/>
+            <input type="password" id="password" placeholder="Digite sua senha" {...register("password")}/>
 
-            <button type="submit">Cadastrar</button>
-        </form>
+            <ButtonBlue type="submit">Cadastrar</ButtonBlue>
+        </Form>
     )
 }
