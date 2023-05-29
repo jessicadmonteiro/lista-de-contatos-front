@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { RegisterForm } from "../../componentes/RegisterForm"
 import { ContainerForm } from "../../styles/Form"
-import { ButtonBlueBackLogin } from "../../styles/ButtonBlue"
+import { ButtonBlueBorder } from "../../styles/ButtonBlue"
 
 export const Register = () => {
 
@@ -14,9 +14,9 @@ export const Register = () => {
     return (
         <>
         <ContainerForm>
-            <ButtonBlueBackLogin onClick={() => {pageRoute()}}>
+            <ButtonBlueBorder onClick={() => {pageRoute()}}>
                 Voltar para o login
-            </ButtonBlueBackLogin>
+            </ButtonBlueBorder>
             <h2>Cadastre-se</h2>
             <RegisterForm/>
         </ContainerForm>

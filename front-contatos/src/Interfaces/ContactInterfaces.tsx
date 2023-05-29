@@ -1,4 +1,3 @@
-
 export interface IContactData {
     username: string
     email: string
@@ -17,5 +16,5 @@ export interface IContactContext {
     AddContact: (newData: IContactData) => Promise<void>
     ListContacts: (id: number | undefined) => Promise<void>
     contacts: INewContactData[]
-    
+    DeleteContact: (id: number) => Promise<void>
 }

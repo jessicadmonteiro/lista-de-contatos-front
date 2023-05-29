@@ -9,7 +9,7 @@ export const ContexContact = createContext({} as IContactContext)
 export const AuthContactProvider = ({ children }: IUserProviderProps) => {
 
 
-    const [contactNew, steContactNew] = useState<INewContactData[]>([])
+    const [arrayContacts, setArrayContacts] = useState<INewContactData[]>([])
     const [contacts, setContacts] = useState<INewContactData[]>([])
 
     const AddContact = async (newData: IContactData) => {
@@ -22,7 +22,7 @@ export const AuthContactProvider = ({ children }: IUserProviderProps) => {
                     authorization: `Bearer ${token}`,
                 }
             })
-            steContactNew([...contactNew, data])
+            setArrayContacts([...arrayContacts, data])
             
         } catch (error) {
             console.log(error)
@@ -48,8 +48,6 @@ export const AuthContactProvider = ({ children }: IUserProviderProps) => {
                     })
         
                     setContacts(res.data.contacts)
-                    console.log(res.data.contacts)
-        
         
                 } catch (error) {
                     console.log(error)
@@ -61,8 +59,29 @@ export const AuthContactProvider = ({ children }: IUserProviderProps) => {
 
     }
 
+    const DeleteContact = async (id: number) => {
+
+        const token = window.localStorage.getItem("token")
+    
+        try {
+            await api.delete(`/contacts/${id}`, {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          })
+    
+          const filterList = contacts.filter((element) => element.id !== id)
+    
+          setContacts(filterList)
+          console.log("Contato removido com sucesso!")
+
+        } catch (error) {
+          console.error(error)
+        }
+    }
+    
     return (
-        <ContexContact.Provider value={{ AddContact, ListContacts, contacts }}>
+        <ContexContact.Provider value={{ AddContact, ListContacts, contacts, DeleteContact }}>
             {children}
         </ContexContact.Provider>
     )

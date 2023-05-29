@@ -5,6 +5,7 @@ export const ButtonBlue = styled.button`
 
     color: var(--white);
     background: var(--brand2);
+
     border: 1.2182px solid var(--brand1);
     border-radius: 4px;
 
@@ -17,10 +18,11 @@ export const ButtonBlueReverse = styled.button`
 
   color: var(--brand1);
   background-color: var(--blue1);
+
   border: 1.2px solid var(--brand2);
   border-radius: 4px;
 `
-export const ButtonBlueBackLogin = styled.button`
+export const ButtonBlueBorder = styled.button`
     width: 35%;
     height: 35px;
 
@@ -28,6 +30,7 @@ export const ButtonBlueBackLogin = styled.button`
 
     color: var(--brand2);
     background-color: var(--blue1);
+    
     border: 1.2px solid var(--brand1);
     border-radius: 4px;
 

@@ -1,6 +1,8 @@
 import { useContext } from "react"
-import { useForm,  SubmitHandler } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { ContexContact } from "../../../context/ContactContext/ContactContext"
+import { BackgroundModal, ContainerModal } from "../style"
+import { ButtonBlue, ButtonBlueBorder } from "../../../styles/ButtonBlue"
 import { IRegisterFormData } from "../../../Interfaces/RegisterInterfaces"
 
 export const ModalAddContact = ({ modalOpen, setModalOpen}) => {
@@ -8,7 +10,7 @@ export const ModalAddContact = ({ modalOpen, setModalOpen}) => {
     const { AddContact } = useContext(ContexContact)
     const { register, handleSubmit} = useForm<IRegisterFormData>()
 
-    const submit: SubmitHandler<IRegisterFormData>= async (data) => {
+    const submit = async (data:IRegisterFormData) => {
 
         await AddContact(data)
         await setModalOpen(false)
@@ -17,26 +19,26 @@ export const ModalAddContact = ({ modalOpen, setModalOpen}) => {
     if(!modalOpen) return null
 
     return (
-        <div>
-            <div>
+        <BackgroundModal>
+            <ContainerModal>
                 <span>
                 <h2>Adicionar contato</h2>
-                <button type="button" onClick={() => { setModalOpen(false) }}>X</button>
+                <ButtonBlueBorder type="button" onClick={() => { setModalOpen(false) }}>X</ButtonBlueBorder>
                 </span>
                 <form onSubmit={ handleSubmit(submit) }>
                     <label htmlFor="text">Nome</label>
-                    <input type="text" id="username" {...register("username")}/>
+                    <input type="text" id="username" placeholder="Digite o nome do contato" {...register("username")}/>
 
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email" {...register("email")}/>
+                    <input type="email" id="email" placeholder="Digite o e-mail do contato" {...register("email")}/>
 
                     <label htmlFor="text">Telefone</label>
-                    <input type="text" id="telephone" {...register("telephone")}/>
+                    <input type="text" id="telephone"  placeholder="Digite o telefone do contato" {...register("telephone")}/>
 
-                    <button type="submit">Adicionar</button>
+                    <ButtonBlue type="submit">Adicionar</ButtonBlue>
                 </form>
-            </div>
-        </div>
+            </ContainerModal>
+        </BackgroundModal>
 
     )
 }
