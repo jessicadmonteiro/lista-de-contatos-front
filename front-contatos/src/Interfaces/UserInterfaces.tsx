@@ -1,3 +1,4 @@
+import { IArrayUserContacts } from "./ContactInterfaces"
 import { ILoginFormData } from "./LoginInterfaces"
 import { IRegisterFormData } from "./RegisterInterfaces"
 
@@ -6,6 +7,9 @@ export interface IUserContextLogin {
     user: IUser | null 
     setUser: React.Dispatch<React.SetStateAction<IUser | null>>
     loading: boolean
+    arrayContacts: IArrayUserContacts[]
+    setArrayContacts: React.Dispatch<React.SetStateAction<IArrayUserContacts[]>>
+    firstLetterUser: string | undefined
 }
 
 export interface IUserContextRegister {

@@ -1,30 +1,30 @@
-import { useContext } from "react"
-import { useForm } from "react-hook-form"
-import { ContexContact } from "../../../context/ContactContext/ContactContext"
 import { BackgroundModal, ContainerModal } from "../style"
 import { ButtonBlue, ButtonBlueBorder } from "../../../styles/ButtonBlue"
-import { IRegisterFormData } from "../../../Interfaces/RegisterInterfaces"
-import { IModalAdd } from "../../../Interfaces/ModalInterfaces"
+import { useContext } from "react"
+import { ContexContact } from "../../../context/ContactContext/ContactContext"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { IEditFormData} from "../../../Interfaces/RegisterInterfaces"
+import { IModalEdit } from "../../../Interfaces/ModalInterfaces"
 
-export const ModalAddContact = ({ modalOpen, setModalOpen}: IModalAdd) => {
+export const ModalEditContact = ({ modalEditOpen, setModalEditOpen}: IModalEdit) => {
 
-    const { AddContact } = useContext(ContexContact)
-    const { register, handleSubmit} = useForm<IRegisterFormData>()
+    const { ToEdit } = useContext(ContexContact)
+    const { register, handleSubmit} = useForm<IEditFormData>()
 
-    const submit = async (data:IRegisterFormData) => {
+    const submit: SubmitHandler<IEditFormData> = async (data) => {
 
-        await AddContact(data)
-        await setModalOpen(false)
+        await ToEdit(data)
+        await setModalEditOpen(false)
     }
 
-    if(!modalOpen) return null
+    if(!modalEditOpen) return null
 
     return (
         <BackgroundModal>
             <ContainerModal>
                 <span>
-                <h2>Adicionar contato</h2>
-                <ButtonBlueBorder type="button" onClick={() => { setModalOpen(false) }}>X</ButtonBlueBorder>
+                <h2>Editar contato</h2>
+                <ButtonBlueBorder type="button" onClick={() => { setModalEditOpen(false) }}>X</ButtonBlueBorder>
                 </span>
                 <form onSubmit={ handleSubmit(submit) }>
                     <label htmlFor="text">Nome</label>

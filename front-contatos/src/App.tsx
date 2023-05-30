@@ -11,13 +11,13 @@ function App() {
     <>
     <GlobalStyle/>
     <ToastContainer/>
-    <AuthRegisterProvider>
-      <AuthLoginProvider>
+    <AuthLoginProvider>
+      <AuthRegisterProvider>
         <AuthContactProvider>
           <RoutesMain/>
         </AuthContactProvider>
-      </AuthLoginProvider>
-    </AuthRegisterProvider>
+      </AuthRegisterProvider>
+    </AuthLoginProvider>
     </>
   )
 }

@@ -4,11 +4,16 @@ import { useContext } from "react"
 import { ContextRegister } from "../../context/RegisterContext/RegisterContext"
 import { Form } from "../../styles/Form"
 import { ButtonBlue } from "../../styles/ButtonBlue"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { registerFormSchema } from "./register.FormSchema"
+
 
 export const RegisterForm = () => {
 
     const { userRegister } = useContext(ContextRegister)
-    const {register, handleSubmit} = useForm<IRegisterFormData>()
+    const {register, handleSubmit} = useForm<IRegisterFormData>({
+        resolver: zodResolver(registerFormSchema)
+    })
 
     const submit: SubmitHandler<IRegisterFormData> = (formData) => {
         userRegister(formData)
@@ -17,7 +22,7 @@ export const RegisterForm = () => {
     return (
         <Form onSubmit={handleSubmit(submit)}>
             <label htmlFor="text">Nome Completo</label>
-            <input type="text" id="username" placeholder="Digite seu Nome" {...register("username")}/>
+            <input type="text" id="username" placeholder="Digite seu Nome" {...register("username")} />
 
             <label htmlFor="email">Email</label>
             <input type="email" id="email" placeholder="Digite seu email" {...register("email")}/>

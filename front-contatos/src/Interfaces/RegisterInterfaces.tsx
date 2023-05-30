@@ -12,3 +12,11 @@ export interface IUserRegisterResponse{
 
 }
 
+export interface IEditFormData {
+    username: string
+    email: string
+    telephone: string
+    password: string
+    id: number
+}
+

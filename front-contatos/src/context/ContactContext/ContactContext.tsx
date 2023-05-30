@@ -1,7 +1,8 @@
-import { createContext, useEffect, useState } from "react"
+import { createContext, useContext, useState } from "react"
 import { IUserProviderProps } from "../../Interfaces/UserInterfaces"
 import { IContactContext, IContactData, INewContactData } from "../../Interfaces/ContactInterfaces"
 import { api } from "../../service/api"
+import { ContextLogin } from "../LoginContext/LoginContext"
 
 
 export const ContexContact = createContext({} as IContactContext)
@@ -9,8 +10,17 @@ export const ContexContact = createContext({} as IContactContext)
 export const AuthContactProvider = ({ children }: IUserProviderProps) => {
 
 
-    const [arrayContacts, setArrayContacts] = useState<INewContactData[]>([])
-    const [contacts, setContacts] = useState<INewContactData[]>([])
+    const {arrayContacts, setArrayContacts} = useContext(ContextLogin)
+    const [idContact, setIdContact] = useState<number | "">("")
+    const [search, setSearch] = useState("")
+
+    const contactFilter = arrayContacts.filter(
+        (contact) =>
+          contact.username.toLowerCase().startsWith(search.toLowerCase()) ||
+          contact.email.toLowerCase().startsWith(search.toLowerCase())
+      )
+
+
 
     const AddContact = async (newData: IContactData) => {
 
@@ -22,40 +32,11 @@ export const AuthContactProvider = ({ children }: IUserProviderProps) => {
                     authorization: `Bearer ${token}`,
                 }
             })
-            setArrayContacts([...arrayContacts, data])
+            setArrayContacts([...contactFilter, data])
             
         } catch (error) {
             console.log(error)
         }
-
-    }
-
-    const ListContacts = async (id: number | undefined) => {
-
-        const token = window.localStorage.getItem("token")
-
-        useEffect(() => {
-
-            const loadContacts = async () =>{
-
-                try {
-
-                    const res = await api.get(`/contacts/users/${id}`,
-                    {
-                        headers: {
-                          authorization: `Bearer ${token}`,
-                        },
-                    })
-        
-                    setContacts(res.data.contacts)
-        
-                } catch (error) {
-                    console.log(error)
-                }
-            }
-            loadContacts()
-            
-        }, [])
 
     }
 
@@ -70,18 +51,40 @@ export const AuthContactProvider = ({ children }: IUserProviderProps) => {
             },
           })
     
-          const filterList = contacts.filter((element) => element.id !== id)
+          const filterList = arrayContacts.filter((element) => element.id !== id)
     
-          setContacts(filterList)
+          setArrayContacts(filterList)
           console.log("Contato removido com sucesso!")
 
         } catch (error) {
           console.error(error)
         }
     }
+
+    
+    const ToEdit = async (data: INewContactData) => {
+        const id = idContact
+
+        const token = window.localStorage.getItem("token")
+
+    try {
+        const res = await api.patch(`/contacts/${id}`, data, {
+        headers: {
+            authorization: `Bearer ${token}`,
+        }
+        })
+
+        const filter = arrayContacts.filter((element: INewContactData) => element.id !== id)
+
+        setArrayContacts([...filter, res.data])
+
+    } catch (error) {
+        console.log(error)
+    }
+}
     
     return (
-        <ContexContact.Provider value={{ AddContact, ListContacts, contacts, DeleteContact }}>
+        <ContexContact.Provider value={{ AddContact, DeleteContact, setIdContact, ToEdit, contactFilter, search, setSearch }}>
             {children}
         </ContexContact.Provider>
     )
