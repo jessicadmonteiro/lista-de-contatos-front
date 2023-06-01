@@ -18,7 +18,7 @@ import { ContainerSpinner, SpinnerImg } from "../../styles/Sipnner"
 
 export const Home = () => {
 
-    const { user, firstLetterUser, loading } = useContext(ContextLogin)
+    const { loading, firstNameUser } = useContext(ContextLogin)
     const {DeleteContact, setIdContact, search, setSearch, contactFilter } = useContext(ContexContact)
 
     const [modalOpen, setModalOpen] = useState<boolean>(false)
@@ -34,7 +34,9 @@ export const Home = () => {
         )
     }
 
-    const firstName = user?.username.split(" ")[0]
+
+    const userLetter = firstNameUser!.substring(0, 1)
+
 
     const LogoutUser = () => {
         window.localStorage.clear()
@@ -52,9 +54,9 @@ export const Home = () => {
         <body>
                 <div>
                     <HeaderHome>
-                        <ButtonfirstLetterUser>{firstLetterUser}</ButtonfirstLetterUser>
+                        <ButtonfirstLetterUser>{userLetter}</ButtonfirstLetterUser>
                         <h3>
-                            Olá, {firstName}
+                            Olá, {firstNameUser}
                         </h3>
                         <ButtonBlueBorder onClick={()=> LogoutUser()}>Sair</ButtonBlueBorder>
                     </HeaderHome>

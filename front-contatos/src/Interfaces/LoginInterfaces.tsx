@@ -4,7 +4,9 @@ export interface ILoginFormData {
     password: string
 }
 
+
 export interface IUserLoginResponse{
     token: string
-    email: string 
+    email: string
+    id: number
 }

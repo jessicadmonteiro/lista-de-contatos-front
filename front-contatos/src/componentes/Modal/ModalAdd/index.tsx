@@ -1,20 +1,24 @@
 import { useContext } from "react"
-import { useForm } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 import { ContexContact } from "../../../context/ContactContext/ContactContext"
 import { BackgroundModal, ContainerModal } from "../style"
 import { ButtonBlue, ButtonBlueBorder } from "../../../styles/ButtonBlue"
-import { IRegisterFormData } from "../../../Interfaces/RegisterInterfaces"
 import { IModalAdd } from "../../../Interfaces/ModalInterfaces"
+import { TFormPropsAdd, addFormSchema } from "./addFormSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Input } from "../../Input"
 
 export const ModalAddContact = ({ modalOpen, setModalOpen}: IModalAdd) => {
 
     const { AddContact } = useContext(ContexContact)
-    const { register, handleSubmit} = useForm<IRegisterFormData>()
+    const { register, handleSubmit, formState: {errors}, reset} = useForm<TFormPropsAdd>(({
+        resolver: zodResolver(addFormSchema)
+    }))
 
-    const submit = async (data:IRegisterFormData) => {
-
+    const submit: SubmitHandler<TFormPropsAdd> = async (data) => {
         await AddContact(data)
         await setModalOpen(false)
+        reset()
     }
 
     if(!modalOpen) return null
@@ -27,14 +31,11 @@ export const ModalAddContact = ({ modalOpen, setModalOpen}: IModalAdd) => {
                 <ButtonBlueBorder type="button" onClick={() => { setModalOpen(false) }}>X</ButtonBlueBorder>
                 </span>
                 <form onSubmit={ handleSubmit(submit) }>
-                    <label htmlFor="text">Nome</label>
-                    <input type="text" id="username" placeholder="Digite o nome do contato" {...register("username")}/>
+                    <Input label="Nome" type="text" id="username" placeholder="Digite o nome do contato" {...register("username")} error={errors.username}/>
 
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id="email" placeholder="Digite o e-mail do contato" {...register("email")}/>
+                    <Input label="E-mail" type="email" id="email" placeholder="Digite o e-mail do contato" {...register("email")} error={errors.email}/>
 
-                    <label htmlFor="text">Telefone</label>
-                    <input type="text" id="telephone"  placeholder="Digite o telefone do contato" {...register("telephone")}/>
+                    <Input label="Telefone" type="text" id="telephone"  placeholder="Digite o telefone do contato" {...register("telephone")} error={errors.telephone}/>
 
                     <ButtonBlue type="submit">Adicionar</ButtonBlue>
                 </form>

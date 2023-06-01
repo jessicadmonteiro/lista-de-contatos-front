@@ -6,6 +6,7 @@ import { api } from "../../service/api"
 import { ILoginFormData, IUserLoginResponse } from "../../Interfaces/LoginInterfaces"
 import { IUser, IUserContextLogin, IUserProviderProps } from "../../Interfaces/UserInterfaces"
 import { IArrayUserContacts } from "../../Interfaces/ContactInterfaces"
+import { toast } from "react-toastify"
 
 export const ContextLogin = createContext({} as IUserContextLogin)
 
@@ -14,7 +15,7 @@ export const AuthLoginProvider = ({ children }: IUserProviderProps) => {
   const [user, setUser] = useState< IUser | null >(null)
   const [loading, setLoading] = useState(true)
   const [arrayContacts, setArrayContacts] = useState<IArrayUserContacts[]>([])
-  const [firstLetterUser, setFirstLetterUser] = useState<string>()
+  const [firstNameUser, setFirstNameUser] = useState<string>()
 
   const navigate = useNavigate()
 
@@ -28,11 +29,12 @@ export const AuthLoginProvider = ({ children }: IUserProviderProps) => {
       window.localStorage.setItem("token", res.data.token)
       window.localStorage.setItem("email", data.email)
 
+
       LoadUser()
       navigate("/home")
 
     } catch (error) {
-      console.log(error)
+      toast.error("Ops! Algo deu errado")
     }
   }
 
@@ -56,24 +58,22 @@ export const AuthLoginProvider = ({ children }: IUserProviderProps) => {
           authorization: `Bearer ${token}`,
         },
       })
-
-      const userFind = data.find((user: IUser) => user.email === email)
-
-      setUser(userFind)
-
-      if(userFind){
-        const userLetter = userFind.username.substring(0, 1)
-        setFirstLetterUser(userLetter)
-      }
       
-      const res =await api.get(`/contacts/users/${userFind.id}`, {
+      const userFilter = data.find((user: IUser) => user.email === email)
+
+      const nameUser = userFilter.username
+      const userId = userFilter.id
+
+      setFirstNameUser(nameUser)
+
+      const res = await api.get(`/contacts/users/${userId}`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
       })
-      
-      setArrayContacts(res.data.contacts)
-      
+
+      setArrayContacts(res.data[0].contacts)
+
   
     } catch (error) {
       console.error(error)
@@ -100,7 +100,7 @@ export const AuthLoginProvider = ({ children }: IUserProviderProps) => {
 
 
   return (
-    <ContextLogin.Provider value={{ userLogin, user, setUser, loading, setArrayContacts, arrayContacts, firstLetterUser }}>
+    <ContextLogin.Provider value={{ userLogin, user, setUser, loading, setArrayContacts, arrayContacts, firstNameUser }}>
       {children}
     </ContextLogin.Provider>
   )

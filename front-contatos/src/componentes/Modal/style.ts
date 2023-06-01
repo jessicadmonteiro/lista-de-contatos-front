@@ -102,15 +102,22 @@ export const ContainerModal = styled.div`
     flex-direction: column;
   }
 
+  p {
+    color: red;
+    
+    font-size: 10px;
+  }
+
   @media(max-width: 743px) {
     width: 50%;
-    left: 10%;
+    left: 20%;
   }
 
    @media(max-width: 420px) {
     width: 80%;
-    left: -5%;
+    left: 40px;
   }
+  
 
 `
 

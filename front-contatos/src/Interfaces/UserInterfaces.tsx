@@ -4,12 +4,12 @@ import { IRegisterFormData } from "./RegisterInterfaces"
 
 export interface IUserContextLogin {
     userLogin: (formData: ILoginFormData) => Promise<void>
-    user: IUser | null 
-    setUser: React.Dispatch<React.SetStateAction<IUser | null>>
+    user: IUser | null
+    setUser: React.Dispatch<React.SetStateAction<IUser | null >>
     loading: boolean
     arrayContacts: IArrayUserContacts[]
     setArrayContacts: React.Dispatch<React.SetStateAction<IArrayUserContacts[]>>
-    firstLetterUser: string | undefined
+    firstNameUser: string | undefined
 }
 
 export interface IUserContextRegister {

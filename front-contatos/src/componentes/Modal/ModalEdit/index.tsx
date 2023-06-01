@@ -3,18 +3,24 @@ import { ButtonBlue, ButtonBlueBorder } from "../../../styles/ButtonBlue"
 import { useContext } from "react"
 import { ContexContact } from "../../../context/ContactContext/ContactContext"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { IEditFormData} from "../../../Interfaces/RegisterInterfaces"
 import { IModalEdit } from "../../../Interfaces/ModalInterfaces"
+import { TFormPropsEdit, updateContactSchema } from "./editFormSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Input } from "../../Input"
 
 export const ModalEditContact = ({ modalEditOpen, setModalEditOpen}: IModalEdit) => {
 
     const { ToEdit } = useContext(ContexContact)
-    const { register, handleSubmit} = useForm<IEditFormData>()
 
-    const submit: SubmitHandler<IEditFormData> = async (data) => {
+    const { register, handleSubmit, formState: {errors}} = useForm<TFormPropsEdit>(({
+        resolver: zodResolver(updateContactSchema),
+    }))
+
+    const submit: SubmitHandler<TFormPropsEdit> = async (data) => {
 
         await ToEdit(data)
-        await setModalEditOpen(false)
+        setModalEditOpen(false)
+        
     }
 
     if(!modalEditOpen) return null
@@ -27,16 +33,13 @@ export const ModalEditContact = ({ modalEditOpen, setModalEditOpen}: IModalEdit)
                 <ButtonBlueBorder type="button" onClick={() => { setModalEditOpen(false) }}>X</ButtonBlueBorder>
                 </span>
                 <form onSubmit={ handleSubmit(submit) }>
-                    <label htmlFor="text">Nome</label>
-                    <input type="text" id="username" placeholder="Digite o nome do contato" {...register("username")}/>
+                    <Input label="Nome" type="text" id="username" placeholder="Digite o nome do contato" {...register("username")}  error={errors.username}/>
 
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id="email" placeholder="Digite o e-mail do contato" {...register("email")}/>
+                    <Input label="E-mail" type="email" id="email" placeholder="Digite o e-mail do contato"  {...register("email")}  error={errors.email}/>
 
-                    <label htmlFor="text">Telefone</label>
-                    <input type="text" id="telephone"  placeholder="Digite o telefone do contato" {...register("telephone")}/>
+                    <Input label="Telefone" type="text" id="telephone"  placeholder="Digite o telefone do contato" {...register("telephone")} error={errors.telephone}/>
 
-                    <ButtonBlue type="submit">Adicionar</ButtonBlue>
+                    <ButtonBlue type="submit" >Adicionar</ButtonBlue>
                 </form>
             </ContainerModal>
         </BackgroundModal>

@@ -3,6 +3,8 @@ import { IUserProviderProps } from "../../Interfaces/UserInterfaces"
 import { IContactContext, IContactData, INewContactData } from "../../Interfaces/ContactInterfaces"
 import { api } from "../../service/api"
 import { ContextLogin } from "../LoginContext/LoginContext"
+import { toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.min.css"
 
 
 export const ContexContact = createContext({} as IContactContext)
@@ -18,8 +20,7 @@ export const AuthContactProvider = ({ children }: IUserProviderProps) => {
         (contact) =>
           contact.username.toLowerCase().startsWith(search.toLowerCase()) ||
           contact.email.toLowerCase().startsWith(search.toLowerCase())
-      )
-
+    )
 
 
     const AddContact = async (newData: IContactData) => {
@@ -32,7 +33,9 @@ export const AuthContactProvider = ({ children }: IUserProviderProps) => {
                     authorization: `Bearer ${token}`,
                 }
             })
+
             setArrayContacts([...contactFilter, data])
+            toast.success("Contato adicionado!")
             
         } catch (error) {
             console.log(error)
@@ -54,7 +57,7 @@ export const AuthContactProvider = ({ children }: IUserProviderProps) => {
           const filterList = arrayContacts.filter((element) => element.id !== id)
     
           setArrayContacts(filterList)
-          console.log("Contato removido com sucesso!")
+          toast.success("Contato removido com sucesso!")
 
         } catch (error) {
           console.error(error)
@@ -84,7 +87,7 @@ export const AuthContactProvider = ({ children }: IUserProviderProps) => {
 }
     
     return (
-        <ContexContact.Provider value={{ AddContact, DeleteContact, setIdContact, ToEdit, contactFilter, search, setSearch }}>
+        <ContexContact.Provider value={{ AddContact, DeleteContact, setIdContact, idContact, ToEdit, contactFilter, search, setSearch, setArrayContacts }}>
             {children}
         </ContexContact.Provider>
     )

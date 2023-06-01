@@ -14,6 +14,8 @@ export const ContainerHome = styled.div`
 `;
 
 export const HeaderHome = styled.header`
+  width: 100%;
+  height: 70px;
  
   display: flex;
   align-items: center;
@@ -33,15 +35,23 @@ export const HeaderHome = styled.header`
     color: var(--gray2);
   }
 
-  button {
-    width: 20%;
+  @media(max-width: 599px) {
+    h3 {
+      font-size: 12px;
+    }
+
+    button {
+      height: 25px;
+
+      font-size: 10px;
+    }
   }
 
 `
 
 export const ButtonfirstLetterUser = styled.button`
-  width: 50px;
-  height: 50px;
+  width: 150px;
+  height: 40px;
 
   border: 1px solid var(--brand1);
   border-radius: 50%;
@@ -50,11 +60,20 @@ export const ButtonfirstLetterUser = styled.button`
   background-color: transparent;
 
   margin-right: 10px;
+
+  @media(max-width: 981px) {
+    font-size: 10px;
+  }
+
+  @media(max-width: 325px){
+    border: transparent;
+    color: transparent;
+  }
 `
 
 export const ConteinerUl = styled.ul`
   width: 90%;
-  height: 376px;
+  height: 360px;
 
   margin: auto;
   overflow-y: auto;
@@ -116,11 +135,10 @@ export const ContainerTitleContacs = styled.div`
 
     color: var(--gray2);
   }
-
   
   button {
     
-    width: 20%;
+    width: 30%;
     height: 35px;
     
     font-size: 12px;
@@ -143,12 +161,45 @@ export const ContainerTitleContacs = styled.div`
     }
   }
 
+  @media(max-width: 777px) {
+    button {
+      height: 40px;
+      
+      font-size: 10px;
+    }
+
+    span {
+      font-size: 5px;
+    }
+  }
+
+  @media(max-width: 673px) {
+    button {
+      border: transparent;
+    }
+    
+  }
+
+  @media(max-width: 325px){
+      
+      h2 {
+        font-size: 15px;
+      }
+    }
+
 `
 
 export const DivImg = styled.div`
   display: flex;
   align-items: center;
   gap: 10PX;
+
+  @media(max-width: 325px) {
+    img {
+      width: 10px;
+      height: 10px;
+    }
+  }
 
 `
 export const ContainerDivLi = styled.div`
@@ -216,6 +267,12 @@ export const ContainerSearch = styled.div`
 
   img {
     height: 30px;
+  }
+
+  @media(max-width: 325px) {
+    input{
+      font-size: 10px;
+    }
   }
 
 `

@@ -1,14 +1,15 @@
 export interface IContactData {
     username: string
-    email: string
+    email?: string | null | undefined
     telephone: string
 }
 
 export interface INewContactData {
-    id: number
-    username: string
-    email: string
-    telephone: string
+    id?: number| undefined
+    username?: string | undefined;
+    email?: string | null | undefined;
+    telephone?: string | undefined;
+    userId?: number | undefined
 }
 
 export interface IArrayUserContacts {
@@ -27,4 +28,6 @@ export interface IContactContext {
     contactFilter: IArrayUserContacts[]
     search: string
     setSearch: React.Dispatch<React.SetStateAction<string>>
+    idContact: number | ""
+    setArrayContacts: React.Dispatch<React.SetStateAction<IArrayUserContacts[]>>
 }
