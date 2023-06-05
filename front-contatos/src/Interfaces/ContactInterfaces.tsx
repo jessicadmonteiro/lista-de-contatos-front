@@ -30,4 +30,5 @@ export interface IContactContext {
     setSearch: React.Dispatch<React.SetStateAction<string>>
     idContact: number | ""
     setArrayContacts: React.Dispatch<React.SetStateAction<IArrayUserContacts[]>>
+    arrayContacts: IArrayUserContacts[]
 }

@@ -34,9 +34,7 @@ export const Home = () => {
         )
     }
 
-
     const userLetter = firstNameUser!.substring(0, 1)
-
 
     const LogoutUser = () => {
         window.localStorage.clear()
@@ -84,12 +82,12 @@ export const Home = () => {
                         <ConteinerUl>
                             <ContainerTitleContacs>
                                 <h2>Seus contatos</h2>
-                                <button onClick={() => {setModalOpen(true)}}>Criar novo contato <span>+</span></button>
+                                <button onClick={() => {setModalOpen(true)}}><p>Criar novo contato</p> <span>+</span></button>
                             </ContainerTitleContacs>
                             {
                                 contactFilter.length <= 0 && (
                                     <div>
-                                        <h3>Adicione Contatos</h3>
+                                        <h3>Você ainda não possui contatos</h3>
                                     </div>
                                 )
                             }

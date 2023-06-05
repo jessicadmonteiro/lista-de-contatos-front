@@ -36,4 +36,8 @@ export const ButtonBlueBorder = styled.button`
 
     margin-left: 65%;
     margin-bottom: 1px;
+    
+   :hover{
+    background-color: var(--blue2)
+   }
 `

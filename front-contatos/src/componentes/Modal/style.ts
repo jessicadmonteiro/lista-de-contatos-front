@@ -18,7 +18,7 @@ export const ContainerModal = styled.div`
   height: 450px;
   position: absolute;
   top: 20%;
-  left: 30%;
+  left: 32%;
 
   background-color: var(--blue1);
 

@@ -25,6 +25,7 @@ export const HeaderHome = styled.header`
   margin-top: 20px;
 
   border-bottom: 1px solid var(--brand1);
+  
 
   h3 {
     width: 80%;
@@ -97,12 +98,13 @@ export const ConteinerUl = styled.ul`
   }
 
   h3 {
-    width: 65%;
-    padding: 0 0 0 25%;
-
-    color: var(--gray2);
+    width: 70%;
 
     margin: auto;
+    text-align: center;
+   
+    color: var(--gray2);
+
   }
 
   li {
@@ -117,6 +119,17 @@ export const ConteinerUl = styled.ul`
 
     border: 1px solid var(--brand1);
     border-radius: 12px;
+  }
+
+  @media(max-width: 499px){
+
+    h2 {
+      font-size: 12px;
+    }
+
+    h3 {
+      font-size: 12px;
+    }
   }
 
 `
@@ -137,10 +150,12 @@ export const ContainerTitleContacs = styled.div`
   }
   
   button {
-    
-    width: 30%;
+    width: 20%;
     height: 35px;
-    
+
+    display: flex;
+    align-items: center;
+  
     font-size: 12px;
 
     color: var(--brand2);
@@ -150,6 +165,11 @@ export const ContainerTitleContacs = styled.div`
     border-radius: 4px;
 
     margin-bottom: 1px;
+    padding: 10px;
+
+    :hover {
+      background-color: var(--blue2);
+    }
 
     span {
       font-size: 20px;
@@ -161,7 +181,7 @@ export const ContainerTitleContacs = styled.div`
     }
   }
 
-  @media(max-width: 777px) {
+  @media(max-width: 906px) {
     button {
       height: 40px;
       
@@ -174,8 +194,14 @@ export const ContainerTitleContacs = styled.div`
   }
 
   @media(max-width: 673px) {
+  
     button {
       border: transparent;
+
+      p {
+        display: none;
+      }
+
     }
     
   }
@@ -193,6 +219,11 @@ export const DivImg = styled.div`
   display: flex;
   align-items: center;
   gap: 10PX;
+
+  img{
+    cursor: pointer;
+  }
+
 
   @media(max-width: 325px) {
     img {

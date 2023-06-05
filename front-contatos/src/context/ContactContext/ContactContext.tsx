@@ -87,7 +87,7 @@ export const AuthContactProvider = ({ children }: IUserProviderProps) => {
 }
     
     return (
-        <ContexContact.Provider value={{ AddContact, DeleteContact, setIdContact, idContact, ToEdit, contactFilter, search, setSearch, setArrayContacts }}>
+        <ContexContact.Provider value={{ AddContact, DeleteContact, setIdContact, idContact, ToEdit, contactFilter, search, setSearch, setArrayContacts, arrayContacts }}>
             {children}
         </ContexContact.Provider>
     )
